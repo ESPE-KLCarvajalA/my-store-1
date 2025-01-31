@@ -18,9 +18,18 @@
     "prettier": "^3.4.2"
   },
   "dependencies": {
+    "@angular/cdk": "^19.1.1",
+    "@angular/material": "^19.1.1",
     "@faker-js/faker": "^9.3.0",
+    "@hapi/boom": "^10.0.1",
     "boom": "^7.3.0",
+    "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "joi": "^17.13.3"
+    "joi": "^17.13.3",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5"
   }
 }

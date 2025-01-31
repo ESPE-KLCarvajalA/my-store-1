@@ -1,9 +1,18 @@
 const boom = require('boom');
 const { faker } = require('@faker-js/faker');
+const pool = require('../libs/postgres.pool');
+// const sequelize = require('../libs/sequelize');
+
+
+
+
 class ProductsService {
   constructor() {
     this.products = [];
     this.generate();
+    this.pool=pool;
+    this.pool.on('error', (err) => console.error(err))
+      
   }
 
   generate() {
@@ -28,8 +37,10 @@ class ProductsService {
     return newProduct;
   }
 
-  find() {
-    return this.products;
+ async find() {
+    const query = 'SELECT * FROM tasks';
+    const [data] = await sequelize.query(query); 
+    return data
   }
 
   async findOne(id) {
@@ -44,17 +55,48 @@ class ProductsService {
   }
 
   async update(id, changes) {
-    const index = this.products.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw boom.notFound('product not found');
+    // Construir una lista de campos a actualizar y sus valores
+    const fields = [];
+    const values = [];
+    let setClause = '';
+  
+    // Solo agregar los campos que fueron proporcionados en el cuerpo de la solicitud
+    if (changes.name) {
+      fields.push('name');
+      values.push(changes.name);
     }
-    const product = this.products[index];
-    this.products[index] = {
-      ...product,
-      ...changes,
-    };
-    return this.products[index];
+    if (changes.ruc) {
+      fields.push('ruc');
+      values.push(changes.ruc);
+    }
+    if (changes.direccion) {
+      fields.push('direccion');
+      values.push(changes.direccion);
+    }
+    if (changes.estado !== undefined) {  // Asegúrate de que el estado también se incluya si se proporciona
+      fields.push('estado');
+      values.push(changes.estado);
+    }
+  
+    // Si no se proporciona ningún campo, lanzar un error
+    if (fields.length === 0) {
+      throw boom.badRequest('No se proporcionaron datos para actualizar');
+    }
+  
+    // Construir la consulta de actualización dinámicamente
+    setClause = fields.map((field, index) => `${field} = $${index + 1}`).join(', ');
+    values.push(id);  // El id del proveedor es el último parámetro
+  
+    const query = `UPDATE proveedores SET ${setClause} WHERE id = $${values.length} RETURNING *`;
+    const { rows } = await this.pool.query(query, values);
+    
+    if (rows.length === 0) {
+      throw boom.notFound('Proveedor no encontrado');
+    }
+  
+    return rows[0];
   }
+  
 
   async delete(id) {
     const index = this.products.findIndex((item) => item.id === id);
