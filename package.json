@@ -23,8 +23,11 @@
     "@faker-js/faker": "^9.3.0",
     "@hapi/boom": "^10.0.1",
     "boom": "^7.3.0",
+<<<<<<< HEAD
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
+=======
+>>>>>>> e9876bf46bd904afb7bd0e5edff48bdfd4304a1e
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "joi": "^17.13.3",

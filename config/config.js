@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 // const config = {
 //     // ...
 //     env: process.env.NODE_ENV || 'development',
     
 // };
 
+=======
+>>>>>>> e9876bf46bd904afb7bd0e5edff48bdfd4304a1e
 require('dotenv').config();
 const config = {
   env: process.env.NODE_ENV || 'dev',
@@ -15,4 +18,8 @@ const config = {
   dbPort: process.env.DB_PORT,
 };
 
+<<<<<<< HEAD
 module.exports = { config };
+=======
+module.exports = { config };
+>>>>>>> e9876bf46bd904afb7bd0e5edff48bdfd4304a1e

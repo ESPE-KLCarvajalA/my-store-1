@@ -8,4 +8,8 @@ const pool = new Pool({
   connectionString: URI,
 });
 
+<<<<<<< HEAD
 module.exports = pool;
+=======
+module.exports = pool;
+>>>>>>> e9876bf46bd904afb7bd0e5edff48bdfd4304a1e

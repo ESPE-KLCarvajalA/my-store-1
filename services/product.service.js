@@ -1,11 +1,16 @@
 const boom = require('boom');
 const { faker } = require('@faker-js/faker');
+<<<<<<< HEAD
 const pool = require('../libs/postgres.pool');
 // const sequelize = require('../libs/sequelize');
 
 
 
 
+=======
+/* const pool = require('../libs/postgres.pool'); */
+const sequelize = require('../libs/sequelize');
+>>>>>>> e9876bf46bd904afb7bd0e5edff48bdfd4304a1e
 class ProductsService {
   constructor() {
     this.products = [];
@@ -37,10 +42,17 @@ class ProductsService {
     return newProduct;
   }
 
+<<<<<<< HEAD
  async find() {
     const query = 'SELECT * FROM tasks';
     const [data] = await sequelize.query(query); 
     return data
+=======
+  async find() {
+    const query = 'SELECT * FROM tasks';
+    const [data] = await sequelize.query(query);
+    return data;
+>>>>>>> e9876bf46bd904afb7bd0e5edff48bdfd4304a1e
   }
 
   async findOne(id) {
